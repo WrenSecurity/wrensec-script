@@ -33,7 +33,7 @@ import org.forgerock.script.scope.Parameter;
 import java.util.Arrays;
 
 /**
- * 
+ *
  */
 public class FunctionClosure extends Closure<JsonValue> {
 
@@ -56,7 +56,7 @@ public class FunctionClosure extends Closure<JsonValue> {
             Object[] arguments = args;
             Function<?> callbackFunction = null;
             if (args.length > 0 && args[args.length - 1] instanceof Closure) {
-                final Closure nativeClosure = (Closure) args[args.length - 1];
+                final Closure<?> nativeClosure = (Closure<?>) args[args.length - 1];
                 if (nativeClosure instanceof FunctionClosure) {
                     callbackFunction = ((FunctionClosure) nativeClosure).function;
                 } else {
@@ -66,7 +66,7 @@ public class FunctionClosure extends Closure<JsonValue> {
                                 final Object... arguments) throws ResourceException,
                                 NoSuchMethodException {
 
-                            Class[] paramTypes = nativeClosure.getParameterTypes();
+                            Class<?>[] paramTypes = nativeClosure.getParameterTypes();
                             Object[] params = new Object[paramTypes.length];
                             for (int i = 0; i < paramTypes.length; i++) {
                                 if (i < arguments.length) {

@@ -13,7 +13,7 @@
    information: "Portions copyright [year] [name of copyright owner]".
 
    Copyright 2012-2016 ForgeRock AS.
-   Portions Copyright 2018-2021 Wren Security.
+   Portions Copyright 2018-2025 Wren Security.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -28,14 +28,8 @@
 
     <name>Wren Security Script - Groovy</name>
 
-    <properties>
-        <commons.script.osgi.import.defaults>
-            org.codehaus.groovy*;version="[1.8,3)",groovy*;version="[1.8,3)"
-        </commons.script.osgi.import.defaults>
-    </properties>
 
     <dependencies>
-        <!-- ForgeRock Commons -->
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>script-common</artifactId>
@@ -43,15 +37,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>2.4.7</version>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>5.0.2</version>
         </dependency>
 
         <!-- Provided Dependencies -->
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
+            <artifactId>osgi.core</artifactId>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -113,9 +107,13 @@
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
-                <version>1.5</version>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>4.2.1</version>
+
+                <configuration>
+                    <targetBytecode>${maven.compiler.release}</targetBytecode>
+                </configuration>
 
                 <executions>
                     <execution>
@@ -123,12 +121,8 @@
                             <goal>generateStubs</goal>
                             <goal>compile</goal>
                             <goal>generateTestStubs</goal>
-                            <goal>testCompile</goal>
+                            <goal>compileTests</goal>
                         </goals>
-
-                        <configuration>
-                            <providerSelection>2.0</providerSelection>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
