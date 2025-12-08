@@ -168,7 +168,7 @@ public class GroovyScript implements CompiledScript {
 
             // create a Map of MethodClosures from this new script object
             Method[] methods = scriptObject.getClass().getMethods();
-            final Map<String, Closure> closures = new HashMap<String, Closure>();
+            final Map<String, Closure<?>> closures = new HashMap<String, Closure<?>>();
             for (Method m : methods) {
                 String name = m.getName();
                 closures.put(name, new MethodClosure(scriptObject, name));
@@ -189,7 +189,7 @@ public class GroovyScript implements CompiledScript {
                         return invokeMethod(object, name, MetaClassHelper.EMPTY_ARRAY);
                     }
                     if (args instanceof Tuple) {
-                        return invokeMethod(object, name, ((Tuple) args).toArray());
+                        return invokeMethod(object, name, ((Tuple<?>) args).toArray());
                     }
                     if (args instanceof Object[]) {
                         return invokeMethod(object, name, (Object[]) args);
@@ -217,7 +217,7 @@ public class GroovyScript implements CompiledScript {
                 }
 
                 private Object callGlobal(String name, Object[] args, Map<String, Object> ctx) {
-                    Closure closure = closures.get(name);
+                    Closure<?> closure = closures.get(name);
                     if (closure != null) {
                         return closure.call(args);
                     } else {
@@ -225,7 +225,7 @@ public class GroovyScript implements CompiledScript {
                         // given ScriptContext. If available, call it.
                         Object value = ctx.get(name);
                         if (value instanceof Closure) {
-                            return ((Closure) value).call(args);
+                            return ((Closure<?>) value).call(args);
                         } // else fall thru..
                     }
                     throw new MissingMethodException(name, getClass(), args);

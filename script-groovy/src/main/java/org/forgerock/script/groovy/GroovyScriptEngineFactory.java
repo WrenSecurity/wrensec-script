@@ -70,7 +70,7 @@ public class GroovyScriptEngineFactory implements ScriptEngineFactory {
     }
 
     public String getEngineVersion() {
-        return "2.0";
+        return "5.0";
     }
 
     public List<String> getExtensions() {

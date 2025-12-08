@@ -27,7 +27,6 @@ package org.forgerock.script.groovy;
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyCodeSource;
-import groovy.lang.GroovyRuntimeException;
 import groovy.lang.Script;
 import groovy.util.GroovyScriptEngine;
 import groovy.util.ResourceConnector;
@@ -73,7 +72,7 @@ public class GroovyScriptEngineImpl extends AbstractScriptEngine {
 
     private final GroovyClassLoader loader;
 
-    private final ConcurrentMap<String, Class> scriptCache = new ConcurrentHashMap<String, Class>();
+    private final ConcurrentMap<String, Class<?>> scriptCache = new ConcurrentHashMap<String, Class<?>>();
     private final ConcurrentMap<String, URL> sourceCache = new ConcurrentHashMap<String, URL>();
 
     private static final String DOT_STAR = ".*";
@@ -155,7 +154,7 @@ public class GroovyScriptEngineImpl extends AbstractScriptEngine {
     Script createScript(String scriptName, Binding binding) throws ResourceException,
             groovy.util.ScriptException {
 
-        Class clazz = scriptCache.get(scriptName);
+        Class<?> clazz = scriptCache.get(scriptName);
         if (clazz == null) {
             // Load from URL
             return groovyScriptEngine.createScript(scriptName, binding);
@@ -222,7 +221,7 @@ public class GroovyScriptEngineImpl extends AbstractScriptEngine {
         // check whether thread context loader can "see" Groovy Script class
         ClassLoader ctxtLoader = Thread.currentThread().getContextClassLoader();
         try {
-            Class c = ctxtLoader.loadClass(Script.class.getName());
+            Class<?> c = ctxtLoader.loadClass(Script.class.getName());
             if (c == Script.class) {
                 return ctxtLoader;
             }
