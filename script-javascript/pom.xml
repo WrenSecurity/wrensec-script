@@ -13,7 +13,7 @@
    information: "Portions copyright [year] [name of copyright owner]".
 
    Copyright 2012-2016 ForgeRock AS.
-   Portions Copyright 2018-2021 Wren Security.
+   Portions Copyright 2018-2026 Wren Security.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>forgerock-script</artifactId>
-        <version>4.8.1-SNAPSHOT</version>
+        <version>5.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>script-javascript</artifactId>
@@ -29,29 +29,23 @@
     <name>Wren Security Script - JavaScript</name>
 
     <dependencies>
-        <!-- ForgeRock Commons -->
         <dependency>
-            <groupId>org.wrensecurity.commons</groupId>
-            <artifactId>script-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.wrensecurity.commons</groupId>
-            <artifactId>json-resource</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.wrensecurity.commons</groupId>
-            <artifactId>json-resource-http</artifactId>
-            <scope>provided</scope>
-            <optional>true</optional>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>5.0.4</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
             <artifactId>org.apache.servicemix.bundles.rhino</artifactId>
             <version>1.7.15_1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -68,23 +62,25 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- SLF4J -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
         </dependency>
 
-        <!-- Provided Dependencies -->
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.core</artifactId>
         </dependency>
 
-        <!-- Test Dependencies -->
         <dependency>
-            <groupId>org.apache.groovy</groupId>
-            <artifactId>groovy</artifactId>
-            <version>5.0.2</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -95,15 +91,21 @@
         </dependency>
 
         <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <scope>test</scope>
+            <groupId>org.wrensecurity.commons</groupId>
+            <artifactId>json-resource</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
+            <groupId>org.wrensecurity.commons</groupId>
+            <artifactId>json-resource-http</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wrensecurity.commons</groupId>
+            <artifactId>script-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -111,12 +113,6 @@
             <artifactId>script-common</artifactId>
             <version>${project.version}</version>
             <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
