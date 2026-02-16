@@ -13,7 +13,7 @@
    information: "Portions copyright [year] [name of copyright owner]".
 
    Copyright 2012-2016 ForgeRock AS.
-   Portions Copyright 2018-2025 Wren Security.
+   Portions Copyright 2018-2026 Wren Security.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -26,7 +26,7 @@
 
     <groupId>org.wrensecurity.commons</groupId>
     <artifactId>forgerock-script</artifactId>
-    <version>4.8.1-SNAPSHOT</version>
+    <version>5.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Wren Security Script Parent</name>
@@ -56,7 +56,6 @@
     </scm>
 
     <repositories>
-        <!-- Needed to retrieve parent POM -->
         <repository>
             <id>wrensecurity-releases</id>
             <name>Wren Security Release Repository</name>
@@ -71,7 +70,6 @@
             </releases>
         </repository>
 
-        <!-- Needed to retrieve parent POM -->
         <repository>
             <id>wrensecurity-snapshots</id>
             <name>Wren Security Snapshot Repository</name>
@@ -93,10 +91,10 @@
     </issueManagement>
 
     <properties>
-        <pgpVerifyKeysVersion>1.9.5</pgpVerifyKeysVersion>
+        <pgpVerifyKeysVersion>1.9.7</pgpVerifyKeysVersion>
         <maven.compiler.release>17</maven.compiler.release>
 
-        <commons.commons-bom.version>22.6.1</commons.commons-bom.version>
+        <commons.commons-bom.version>23.0.0-M1</commons.commons-bom.version>
 
         <commons.script.osgi.import.before.defaults />
         <commons.script.osgi.import.defaults />
@@ -120,11 +118,27 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.wrensecurity.commons</groupId>
-                <artifactId>commons-bom</artifactId>
-                <version>${commons.commons-bom.version}</version>
-                <scope>import</scope>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>2.21.0</version>
                 <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-bom</artifactId>
+                <version>3.27.7</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-bom</artifactId>
+                <version>5.21.0</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>
@@ -132,6 +146,28 @@
                 <artifactId>osgi.core</artifactId>
                 <version>7.0.0</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-bom</artifactId>
+                <version>2.0.17</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>7.8.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wrensecurity.commons</groupId>
+                <artifactId>commons-bom</artifactId>
+                <version>${commons.commons-bom.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
