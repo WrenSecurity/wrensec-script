@@ -91,10 +91,10 @@
     </issueManagement>
 
     <properties>
-        <pgpVerifyKeysVersion>1.9.7</pgpVerifyKeysVersion>
+        <pgpVerifyKeysVersion>1.9.13</pgpVerifyKeysVersion>
         <maven.compiler.release>17</maven.compiler.release>
 
-        <commons.commons-bom.version>23.0.0-M1</commons.commons-bom.version>
+        <commons.commons-bom.version>23.0.0</commons.commons-bom.version>
 
         <commons.script.osgi.import.before.defaults />
         <commons.script.osgi.import.defaults />

@@ -1,3 +1,0 @@
-export MAVEN_PACKAGE="forgerock-script"
-export BINTRAY_PACKAGE="wrensec-script"
-export JFROG_PACKAGE="org/forgerock/commons/forgerock-script"
