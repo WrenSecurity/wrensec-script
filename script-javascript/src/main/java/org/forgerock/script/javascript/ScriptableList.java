@@ -4,6 +4,7 @@
 
 /**
  * Portions Copyrighted 2012-2014 ForgeRock AS
+ * Portions Copyright 2026 Wren Security.
  */
 package org.forgerock.script.javascript;
 
@@ -18,13 +19,11 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.IdFunctionObject;
 import org.mozilla.javascript.IdScriptableObject;
 import org.mozilla.javascript.NativeArray;
-import org.mozilla.javascript.NativeObject;
 import org.mozilla.javascript.ScriptRuntime;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.Symbol;
 import org.mozilla.javascript.SymbolKey;
-import org.mozilla.javascript.TopLevel;
 import org.mozilla.javascript.Undefined;
 import org.mozilla.javascript.Wrapper;
 
@@ -298,7 +297,7 @@ class ScriptableList extends IdScriptableObject implements Wrapper {
     }
 
     @Override
-    protected ScriptableObject getOwnPropertyDescriptor(Context cx, Object id) {
+    protected DescriptorInfo getOwnPropertyDescriptor(Context cx, Object id) {
         if (!list.isEmpty()) {
             try {
                 //TODO more proper conversion
@@ -316,16 +315,8 @@ class ScriptableList extends IdScriptableObject implements Wrapper {
         return super.getOwnPropertyDescriptor(cx, id);
     }
 
-    private ScriptableObject defaultIndexPropertyDescriptor(Object value) {
-        Scriptable scope = getParentScope();
-        if (scope == null) scope = this;
-        ScriptableObject desc = new NativeObject();
-        ScriptRuntime.setBuiltinProtoAndParent(desc, scope, TopLevel.Builtins.Object);
-        desc.defineProperty("value", value, EMPTY);
-        desc.defineProperty("writable", true, EMPTY);
-        desc.defineProperty("enumerable", true, EMPTY);
-        desc.defineProperty("configurable", true, EMPTY);
-        return desc;
+    private DescriptorInfo defaultIndexPropertyDescriptor(Object value) {
+        return new DescriptorInfo(true, true, true, value);
     }
 
 
@@ -768,14 +759,11 @@ class ScriptableList extends IdScriptableObject implements Wrapper {
 
         } else if (thisObj instanceof NativeArray) {
 
-            ScriptRuntime.throwError(cx, this, "Can not delegate the method to super NativeArray");
-            IdFunctionObject f = null;
+            throw ScriptRuntime.throwError(cx, this, "Can not delegate the method to super NativeArray");
+
             /*
              * case Id_join: return js_join(cx, thisObj, args);
              */
-
-            return ScriptRuntime.toString(((NativeArray) thisObj).execIdCall(f, cx, this, thisObj,
-                    args));
 
         } else {
             ScriptRuntime.throwError(cx, this, "Can not delegate the method to super NativeArray");
